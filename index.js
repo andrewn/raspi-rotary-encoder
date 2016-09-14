@@ -72,8 +72,6 @@ export class RotaryEncoder extends EventEmitter {
       pullResistor: pullResistorValueForString(pullResistorConfig.b)
     };
 
-    console.log(aConfig, bConfig);
-
     // Use this to set pin mode and pull resistor state
     const a = new DigitalInput(aConfig);
     const b = new DigitalInput(bConfig);

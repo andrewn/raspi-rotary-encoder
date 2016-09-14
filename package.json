@@ -1,6 +1,6 @@
 {
   "name": "raspi-rotary-encoder",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Provides reading of a Rotary Encoder connected to the Raspberry Pi's GPIO pins",
   "main": "lib/index.js",
   "dependencies": {

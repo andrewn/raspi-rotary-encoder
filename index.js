@@ -35,17 +35,44 @@ function resolveWiringPiToGPIO(wiringPiPin) {
   }
 }
 
+function pullResistorValueForString(str=null) {
+  switch (str) {
+    case 'up'  : return PULL_UP;
+    case 'down': return PULL_DOWN;
+    case 'none': return PULL_NONE;
+    default:     return null;
+  }
+}
+
 const INPUT = 'in';
 const EDGE_BOTH = 'both';
 
 export class RotaryEncoder extends EventEmitter {
-  constructor(aConfig, bConfig) {
+  constructor(config={ pins: null }) {
     super();
+
+    if (config.pins === null || config.pins.a == null || config.pins.b == null) {
+      throw new Error('RotaryEncoder requires pins.a and pins.b to be specified in config');
+    }
 
     // Bind update method to class so it is always
     // called in the correct context
     this.handleUpdate = this.handleUpdate.bind(this);
     this.handleInterrupt = this.handleInterrupt.bind(this);
+
+    const pullResistorConfig = config.pullResistors || {};
+
+    const aConfig = {
+      pin: config.pins.a,
+      pullResistor: pullResistorValueForString(pullResistorConfig.a)
+    };
+
+    const bConfig = {
+      pin: config.pins.b,
+      pullResistor: pullResistorValueForString(pullResistorConfig.b)
+    };
+
+    console.log(aConfig, bConfig);
 
     // Use this to set pin mode and pull resistor state
     const a = new DigitalInput(aConfig);
@@ -88,8 +115,3 @@ export class RotaryEncoder extends EventEmitter {
     }
   }
 }
-
-// Expose these constants for clients to set resistors
-RotaryEncoder.PULL_NONE = PULL_NONE;
-RotaryEncoder.PULL_UP = PULL_UP;
-RotaryEncoder.PULL_DOWN = PULL_DOWN;

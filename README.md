@@ -27,12 +27,13 @@ var raspi = require('raspi');
 var RotaryEncoder = require('raspi-rotary-encoder').RotaryEncoder;
 
 raspi.init(function() {
-  var pinA = { pin: 4, pullResistor: RotaryEncoder.PULL_UP };
-  var pinB = { pin: 5, pullResistor: RotaryEncoder.PULL_UP };
-  var encoder = new RotaryEncoder(pinA, pinB);
+  var encoder = new RotaryEncoder({
+    pins: { a: 5, b: 4 },
+    pullResistors: { a: "up", b: "up" }
+  });
 
   encoder.addListener('change', function (evt) {
-    console.log('Count', evt.count);
+    console.log('Count', evt.value);
   })
 });
 ```
@@ -45,24 +46,24 @@ To help make it easier, you can specify pins in three ways. The first is to spec
 
 ## API
 
-### new RotaryEncoder(pinAConfig, pinBConfig)
+### new RotaryEncoder(config)
 
-Instantiates a new RotaryEncoder instance using the given pins.
+Instantiates a new RotaryEncoder instance using the config object properties:
 
 _Arguments_:
 
 <table>
   <thead>
     <tr>
-      <th>Argument</th>
+      <th>Property</th>
       <th>Type</th>
       <th>Description</th>
     </tr>
   </thead>
   <tr>
-    <td>pinAConfig</td>
-    <td>Number | String | Object</td>
-    <td>The configuration for the A pin. If the config is a number or string, it is assumed to be the pin number for the peripheral. If it is an object, the following properties are supported:</td>
+    <td>pins</td>
+    <td>Object</td>
+    <td>```{ a, b }```. Object of the pins to use for the encoder's A and B pins. The values for ```a``` and ```b``` can be a number or string as described in "Pin naming" above.</td>
   </tr>
   <tr>
     <td></td>
@@ -76,22 +77,22 @@ _Arguments_:
           </tr>
         </thead>
         <tr>
-          <td>pin</td>
+          <td>a</td>
           <td>Number | String</td>
-          <td>The pin number for the peripheral</td>
+          <td>The pin number connected to the A leg of the encoder</td>
         </tr>
         <tr>
-          <td>pullResistor</td>
-          <td>```RotaryEncoder.PULL_NONE``` | ```RotaryEncoder.PULL_DOWN``` | ```RotaryEncoder.PULL_UP```</td>
-          <td>Which internal pull resistor to enable, if any. Defaults to ```RotaryEncoder.PULL_NONE```</td>
+        <td>b</td>
+          <td>Number | String</td>
+          <td>The pin number connected to the B leg of the encoder</td>
         </tr>
       </table>
     </td>
   </tr>
   <tr>
-    <td>pinBConfig</td>
-    <td>Number | String | Object</td>
-    <td>The configuration for the B pin. If the config is a number or string, it is assumed to be the pin number for the peripheral. If it is an object, the following properties are supported:</td>
+    <td>pullResistors</td>
+    <td>Object (optional)</td>
+    <td>```{ a, b }```. Object of the pull-up or pull-down resistors to use (if any) for the encoder's A and B pins. </td>
   </tr>
   <tr>
     <td></td>
@@ -105,14 +106,14 @@ _Arguments_:
           </tr>
         </thead>
         <tr>
-          <td>pin</td>
-          <td>Number | String</td>
-          <td>The pin number for the peripheral</td>
+          <td>a</td>
+          <td>String</td>
+          <td>The strings ```up```, ```down``` or ```none``` are valid.</td>
         </tr>
         <tr>
-          <td>pullResistor</td>
-          <td>```RotaryEncoder.PULL_NONE``` | ```RotaryEncoder.PULL_DOWN``` | ```RotaryEncoder.PULL_UP```</td>
-          <td>Which internal pull resistor to enable, if any. Defaults to ```RotaryEncoder.PULL_NONE```</td>
+          <td>b</td>
+          <td>String</td>
+          <td>The strings ```up```, ```down``` or ```none``` are valid.</td>
         </tr>
       </table>
     </td>

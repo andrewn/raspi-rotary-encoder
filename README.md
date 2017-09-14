@@ -1,6 +1,8 @@
 Raspi Rotary Encoder
 ==========
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/andrewn/raspi-rotary-encoder.svg)](https://greenkeeper.io/)
+
 Add Rotary Encoders to your Raspberry Pi with ease!
 
 Rotary Encoder is inspired by, and designed to work with [@nebrius'](https://github.com/nebrius) [Raspi.js suite](https://github.com/nebrius/raspi). This README is heavily based on those tools.

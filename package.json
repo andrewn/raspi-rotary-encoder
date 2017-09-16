@@ -4,9 +4,9 @@
   "description": "Provides reading of a Rotary Encoder connected to the Raspberry Pi's GPIO pins",
   "main": "lib/index.js",
   "dependencies": {
-    "onoff": "^1.1.1",
-    "raspi-board": "^3.1.0",
-    "raspi-gpio": "^2.3.0"
+    "onoff": "^1.1.7",
+    "raspi-board": "^5.0.1",
+    "raspi-gpio": "^5.0.0"
   },
   "devDependencies": {
     "babel-cli": "^6.6.5",
